@@ -5,6 +5,15 @@ const findAllCategories = async (req, res, next) => {
   req.categoriesArray = await categories.find({});
   next();
 }
+const findCategoryById = async (req, res, next) => {
+  console.log("GET /categories/:id");
+  try {
+    req.category = await categories.findById(req.params.id);
+    next();
+  } catch (error) {
+    res.status(404).send({ message: "Category not found" });
+  }
+};
 const createCategories = async (req, res, next) => {
   console.log("POST /categories");
   try {
@@ -18,4 +27,4 @@ const createCategories = async (req, res, next) => {
 
 
 
-module.exports = findAllCategories, createCategories;
+module.exports = findAllCategories, createCategories, findCategoryById;

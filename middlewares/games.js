@@ -4,12 +4,29 @@
 const games = require("../models/game");
 
 const findAllGames = async (req, res, next) => {
-  // По GET-запросу на эндпоинт /games найдём все документы категорий
-  // и с помощью метода populate запросим данные о связанных
-  // категориях и пользователях
-  const result = await games.find({}).populate("categories").populate("users");
-  console.log(result);
+  console.log("GET /games");
+  req.gamesArray = await games
+    .find({})
+    .populate("categories")
+    .populate({
+          path: "users",
+          select: "-password"
+        });
   next();
+};
+const findGameById = async (req, res, next) => {
+  try {
+      req.game = await games
+      .findById(req.params.id)
+      .populate("categories")
+      .populate({
+          path: "users",
+          select: "-password"
+        });
+  next();
+  } catch (error) {
+      res.status(404).send({ message: "Game not found" });
+  }
 };
 const createGame = async (req, res, next) => {
   console.log("POST /games");
@@ -23,4 +40,4 @@ const createGame = async (req, res, next) => {
 };
 
 // Экспортируем функцию поиска всех игр
-module.exports = findAllGames, createGame;
+module.exports = findAllGames, createGame, findGameById;
