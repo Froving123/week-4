@@ -14,7 +14,7 @@ const findCategoryById = async (req, res, next) => {
     res.status(404).send({ message: "Category not found" });
   }
 };
-const createCategories = async (req, res, next) => {
+const createCategory = async (req, res, next) => {
   console.log("POST /categories");
   try {
     console.log(req.body);
@@ -64,4 +64,4 @@ const checkEmptyName = async (req, res, next) => {
 }; 
 
 
-module.exports = findAllCategories, createCategories, findCategoryById, updateCategory, deleteCategory, checkIsCategoryExists, checkEmptyName;
+module.exports = {findAllCategories, createCategory, findCategoryById, updateCategory, deleteCategory, checkIsCategoryExists, checkEmptyName};

@@ -13,7 +13,7 @@ const findUserById = async (req, res, next) => {
     res.status(404).send({ message: "User not found" });
   }
 };
-const createUsers = async (req, res, next) => {
+const createUser = async (req, res, next) => {
   console.log("POST /users");
   try {
     console.log(req.body);
@@ -70,4 +70,4 @@ const checkIsUserExists = async (req, res, next) => {
   }
 };
 
-module.exports = findAllUsers, createUsers, findUserById, updateUser, deleteUser, checkEmptyNameAndEmailAndPassword, checkEmptyNameAndEmail, checkIsUserExists;
+module.exports = {findAllUsers, createUser, findUserById, updateUser, deleteUser, checkEmptyNameAndEmailAndPassword, checkEmptyNameAndEmail, checkIsUserExists};

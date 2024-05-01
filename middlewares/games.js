@@ -100,4 +100,4 @@ const checkIsGameExists = async (req, res, next) => {
   }
 };
 
-module.exports = findAllGames, createGame, findGameById, updateGame, deleteGame, checkEmptyFields, checkIfCategoriesAvaliable, checkIfUsersAreSafe , checkIsGameExists;
+module.exports = {findAllGames, createGame, findGameById, updateGame, deleteGame, checkEmptyFields, checkIfCategoriesAvaliable, checkIfUsersAreSafe , checkIsGameExists};
