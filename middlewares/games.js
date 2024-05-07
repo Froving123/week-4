@@ -1,19 +1,21 @@
-// Файл middlewares/games.js
-
-// Импортируем модель
 const games = require("../models/game");
 
 const findAllGames = async (req, res, next) => {
-  console.log("GET /games");
+  if(req.query["categories.name"]) { 
+    req.gamesArray = await games.findGameByCategory(req.query["categories.name"]);
+    next();
+    return;
+  }
   req.gamesArray = await games
     .find({})
     .populate("categories")
     .populate({
-          path: "users",
-          select: "-password"
-        });
+      path: "users",
+      select: "-password" 
+    })
   next();
 };
+
 const findGameById = async (req, res, next) => {
   try {
       req.game = await games

@@ -18,12 +18,13 @@ const {
     sendCategoryUpdated,
     sendCategoryDeleted
     } = require('../controllers/categories');
+const {checkAuth} = require("../middlewares/auth.js");
 
 categoriesRouter.get('/categories', findAllCategories, sendAllCategories);
-categoriesRouter.post('/categories', findAllCategories, createCategory, sendCategoryCreated, checkIsCategoryExists, checkEmptyName);
+categoriesRouter.post('/categories', findAllCategories, createCategory, sendCategoryCreated, checkIsCategoryExists, checkEmptyName, checkAuth);
 categoriesRouter.get("/categories/:id", findCategoryById, sendCategoryById);
-categoriesRouter.put("/categories/:id", checkEmptyName, updateCategory, sendCategoryUpdated);
-categoriesRouter.delete("/categories/:id", deleteCategory, sendCategoryDeleted);
+categoriesRouter.put("/categories/:id", checkEmptyName, updateCategory, sendCategoryUpdated, checkAuth);
+categoriesRouter.delete("/categories/:id", deleteCategory, sendCategoryDeleted, checkAuth);
 
 // Экспортируем роут для использования в приложении — app.js
 module.exports = categoriesRouter;
