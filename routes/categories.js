@@ -1,30 +1,49 @@
-// Создаём роут для запросов категорий 
-const categoriesRouter = require('express').Router();
+const categoriesRouter = require("express").Router();
+const { checkAuth } = require("../middlewares/auth.js");
 
-// Импортируем вспомогательные функции
 const {
-    findAllCategories,
-    createCategory,
-    findCategoryById,
-    deleteCategory,
-    checkIsCategoryExists,
-    checkEmptyName,
-    updateCategory
-    } = require('../middlewares/categories');
-const {
-    sendAllCategories,
-    sendCategoryCreated,
-    sendCategoryById,
-    sendCategoryUpdated,
-    sendCategoryDeleted
-    } = require('../controllers/categories');
-const {checkAuth} = require("../middlewares/auth.js");
+  findAllCategories,
+  createCategory,
+  findCategoryById,
+  updateCategory,
+  deleteCategory,
+  checkIsCategoryExists,
+  checkEmptyName,
+} = require("../middlewares/categories");
 
-categoriesRouter.get('/categories', findAllCategories, sendAllCategories);
-categoriesRouter.post('/categories', findAllCategories, createCategory, sendCategoryCreated, checkIsCategoryExists, checkEmptyName, checkAuth);
+const {
+  sendAllCategories,
+  sendCategoryCreated,
+  sendCategoryById,
+  sendCategoryUpdated,
+  sendCategoryDeleted,
+} = require("../controllers/categories");
+
+categoriesRouter.get("/categories", findAllCategories, sendAllCategories);
+categoriesRouter.post(
+  "/categories",
+  checkEmptyName,
+  findAllCategories,
+  checkIsCategoryExists,
+  checkAuth,
+  createCategory,
+  sendCategoryCreated
+);
+
 categoriesRouter.get("/categories/:id", findCategoryById, sendCategoryById);
-categoriesRouter.put("/categories/:id", checkEmptyName, updateCategory, sendCategoryUpdated, checkAuth);
-categoriesRouter.delete("/categories/:id", deleteCategory, sendCategoryDeleted, checkAuth);
+categoriesRouter.put(
+  "/categories/:id",
+  checkEmptyName,
+  checkAuth,
+  updateCategory,
+  sendCategoryUpdated
+);
 
-// Экспортируем роут для использования в приложении — app.js
+categoriesRouter.delete(
+  "/categories/:id",
+  checkAuth,
+  deleteCategory,
+  sendCategoryDeleted
+); 
+
 module.exports = categoriesRouter;
