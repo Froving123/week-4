@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const apiRouter = require("./routes/apiRouter");
 const cookieParser = require("cookie-parser");
-const pagesRouter = require("./routes/pages")
+const pagesRouter = require("./routes/pagesRouter")
 
 const connectToDatabase = require('./database/connect');
 const cors = require('./middlewares/cors');
