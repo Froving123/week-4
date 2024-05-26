@@ -1,6 +1,10 @@
 const jwt = require("jsonwebtoken");
 
 const checkAuth = (req, res, next) => {
+  if (req.isVoteRequest) {
+    next();
+    return;
+  }
   const { authorization } = req.headers;
 
   if (!authorization || !authorization.startsWith("Bearer ")) {
