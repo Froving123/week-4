@@ -39,12 +39,12 @@ gamesRouter.put(
     "/games/:id",
     findGameById,
     checkIsVoteRequest,
-    updateGame,
-    sendGameUpdated,
     checkIfUsersAreSafe,
     checkIfCategoriesAvaliable,
     checkEmptyFields,
     checkAuth,
+    updateGame,
+    sendGameUpdated,
   );
 
 gamesRouter.delete(
